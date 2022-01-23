@@ -1,0 +1,130 @@
+body
+{
+    background-color: antiquewhite;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+p
+{
+    margin: 0;
+    padding: 0;
+}
+
+#quiz-container
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto; 
+    height: 92vh; 
+
+    box-sizing: border-box;
+    border: 1px dashed rgba(0, 128, 0, 0.288);
+    margin: 8px;
+    border-radius: 25px;
+}
+
+#valasz-container
+{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 35%;
+    /* border: red 3px solid; */
+}
+
+#next-button
+{
+    margin: 10px;
+    background-color: rgba(210, 105, 30, 0.192);
+
+    font-size: 1em;
+
+    padding: 5px 10px;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+}
+
+#explanation
+{
+    margin: 10px;
+    padding: 5px 10px;
+    font-size: 1em;
+    border:rgba(189, 163, 231, 0.288) 1px solid;
+}
+
+#explanation p
+{
+    padding: 4px;
+    font-size: 1em;
+}
+
+.valasz
+{
+    font-size: 1.2em;
+
+    margin: 10px;
+    background-color: rgb(228, 230, 229);
+    padding: 10px;
+    border-radius: 18px;
+}
+
+.correct
+{
+    background-color: rgb(145, 250, 132);
+}
+
+.incorrect
+{
+    background-color: rgb(250, 150, 132);
+}
+
+#kerdes
+{
+
+    font-size: 1.4em;
+
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 25px;
+
+
+
+    /* color: tomato; */
+    background: rgba(189, 163, 231, 0.055);
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* margin:auto;*/
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    /* font-size: 20px; */
+    margin: 0 0 40px 0;
+}
+
+.logo
+{
+    /* box-sizing: border-box; */
+    font-size: large;
+}
+
+.logo a
+{
+    color:rgba(124, 1, 1, 0.918);
+}
+/* other */
+
+.unselectable{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

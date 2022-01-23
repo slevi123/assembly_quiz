@@ -1,0 +1,93 @@
+[
+
+{
+    "question":"Melyik nem egy szegmens regiszter?",
+    "answers": [
+        {"text":"SS", "correct": false},
+        {"text":"DS", "correct": false},
+        {"text":"CX", "correct": true},
+        {"text":"CS", "correct": false}
+    ],
+    "explanation": "A CX egy általános célú regiszter, SS=stack segment, DS=data segment, CS=code segment"
+},
+{
+    "question":"Melyik általános regiszter?",
+    "answers": [
+        {"text":"SS", "correct": false},
+        {"text":"DS", "correct": false},
+        {"text":"CX", "correct": true},
+        {"text":"CS", "correct": false},
+        {"text":"FS", "correct": false},
+        {"text":"ES", "correct": false},
+        {"text":"GS", "correct": false}
+    ],
+    "explanation": "A ECX egy általános célú regiszter, SS=stack segment, DS=data segment, CS=code segment"
+},
+{
+    "question":"Melyik szegmensregiszterrel címez az IP regiszter?",
+    "answers": [
+        {"text":"SS", "correct": false},
+        {"text":"DS", "correct": false},
+        {"text":"ES", "correct": false},
+        {"text":"CS", "correct": true}
+    ],
+    "explanation": 
+        [ 
+            "IP = instruction pointer: az eltolást tartalmazza, hogy az adott szegmensben, hányadik utasításnál vagyunk",
+            "CS = code segment: az utasításokat tartalmazó szegmens sorszámát tartalmazza", 
+            "utasítás fizikai címének kiszámítása valós üzemmód esetén: 16*CS + IP, jelölés: CS:IP", 
+            "(SS=stack segment, DS=data segment, ES=extra segment)"
+        ]
+},
+{
+    "question":"Melyik utasítás tartalmaz direkt címzést?",
+    "answers": [
+        {"text":"sub ECX, EAX", "correct": false},
+        {"text":"add EBX, 4", "correct": false},
+        {"text":"mov EAX, [ESI]", "correct": false},
+        {"text":"mov EAX, [TOMB]", "correct": true},
+        {"text":"mov AL, [ESI + 4*EBX]", "correct": false}
+    ],
+    "explanation": 
+        [ 
+            "Direkt címzés: amikor a cím mező egy operandus címét tartalmazza (nem egy regiszterből veszi a címet)",
+            "mov EAX, [TOMB]: direkt címzés, mivel a fordító program kicseréli a TOMB cimkét a memóriacímére",
+            "add EBX, 4: immediate (közvetlen) címzés, a 4-es értéket megadjuk az utasítás után, nem kell a memóriában keresni",
+            "sub ECX, EAX: regiszter címzés, mindkettő regiszter",
+            "mov EAX, [ESI]: indirekt címzés, mert a címet elöszőr a regszter címén kell megkeresse",
+            "mov AL, [ESI + 4*EBX]: indexelt címzés"
+        ]
+},
+{
+    "question":"Melyik utasítás tartalmaz indirekt címzést?",
+    "answers": [
+        {"text":"sub ECX, EAX", "correct": false},
+        {"text":"add EBX, 4", "correct": false},
+        {"text":"mov [EDX], AL", "correct": true},
+        {"text":"mov EAX, [TOMB]", "correct": false},
+        {"text":"mov AL, [ESI + 4*EBX]", "correct": false}
+    ],
+    "explanation": 
+        [ 
+            "Indirekt címzés: amikor a cím mező egy operandus címét tartalmazza (nem egy regiszterből veszi a címet)",
+            "mov [EDI], AL: indirekt címzés, mert a címet elöszőr a regiszter címén kell megkeresse",
+            "mov EAX, [TOMB]: direkt címzés, mivel a fordító program kicseréli a TOMB cimkét a memóriacímére",
+            "add EBX, 4: immediate (közvetlen) címzés, a 4-es értéket megadjuk az utasítás után, nem kell a memóriában keresni",
+            "sub ECX, EAX: regiszter címzés, mindkettő regiszter",
+            "mov AL, [ESI + 4*EBX]: indexelt címzés"
+        ]
+},
+{
+    "question":"Hány bitesek a 8087-es társprocesszor lebegőpontos regiszterei?",
+    "answers": [
+        {"text":"16", "correct": false},
+        {"text":"64", "correct": false},
+        {"text":"80", "correct": true},
+        {"text":"32", "correct": false},
+        {"text":"128", "correct": false}
+    ],
+    "explanation": 
+            "The 8087 provided two basic 32/64-bit floating-point data types and an additional extended 80-bit internal temporary format (that could also be stored in memory) to improve accuracy over large and complex calculations."
+}
+
+]

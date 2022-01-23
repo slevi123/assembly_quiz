@@ -1,79 +1,100 @@
 [
+ 
     {
-        "question":"Melyik nem egy szegmens regiszter?",
+        "question":"Mikor állítódik be az overflow flag?",
         "answers": [
-            {"text":"SS", "correct": false},
-            {"text":"DS", "correct": false},
-            {"text":"CX", "correct": true},
-            {"text":"CS", "correct": false}
-        ],
-        "explanation": "A CX egy általános célú regiszter, SS=stack segment, DS=data segment, CS=code segment"
-    },
-    {
-        "question":"Melyik általános regiszter?",
-        "answers": [
-            {"text":"SS", "correct": false},
-            {"text":"DS", "correct": false},
-            {"text":"CX", "correct": true},
-            {"text":"CS", "correct": false},
-            {"text":"FS", "correct": false},
-            {"text":"ES", "correct": false},
-            {"text":"GS", "correct": false}
-        ],
-        "explanation": "A ECX egy általános célú regiszter, SS=stack segment, DS=data segment, CS=code segment"
-    },
-    {
-        "question":"Melyik szegmensregiszterrel címez az IP regiszter?",
-        "answers": [
-            {"text":"SS", "correct": false},
-            {"text":"DS", "correct": false},
-            {"text":"ES", "correct": false},
-            {"text":"CS", "correct": true}
+            {"text":"előjel nélküli összeadáskor fellépő túlcsordulás esetén", "correct": false},
+            {"text":"mindig, ha túlcsordulás lép fel", "correct": false},
+            {"text":"előjeles összeadáskor fellépő túlcsordulás esetén", "correct": true},
+            {"text":"ha az eredény negatív", "correct": false}
         ],
         "explanation": 
             [ 
-                "IP = instruction pointer: az eltolást tartalmazza, hogy az adott szegmensben, hányadik utasításnál vagyunk",
-                "CS = code segment: az utasításokat tartalmazó szegmens sorszámát tartalmazza", 
-                "utasítás fizikai címének kiszámítása valós üzemmód esetén: 16*CS + IP, jelölés: CS:IP", 
-                "(SS=stack segment, DS=data segment, ES=extra segment)"
+                "Vegyünk példának egy 32 bites összeadást, ahol a bitek sorszámai rendre: 31 30 .. 2 1 0",
+                "A carry flag azt jelzi, hogy lenne-e olyan bit, amelyik a 32. helyre kellene kerüljön.",
+                "Az overflow flag azt jelzi, hogy előjeles reprezentációk esetén az előjel bitet (31. bit) már nem lehetne megfelelően eltárolni."
             ]
     },
     {
-        "question":"Melyik utasítás tartalmaz direkt címzést?",
+        "question":"Hány szegmensregisztere van a 80486-os processzornak?",
         "answers": [
-            {"text":"sub ECX, EAX", "correct": false},
-            {"text":"add EBX, 4", "correct": false},
-            {"text":"mov EAX, [ESI]", "correct": false},
-            {"text":"mov EAX, [TOMB]", "correct": true},
-            {"text":"mov AL, [ESI + 4*EBX]", "correct": false}
+            {"text":"2", "correct": false},
+            {"text":"8", "correct": false},
+            {"text":"6", "correct": true},
+            {"text":"9", "correct": false},
+            {"text":"4", "correct": false},
+            {"text":"12", "correct": false},
+            {"text":"13", "correct": false},
+            {"text":"3", "correct": false},
+            {"text":"5", "correct": false},
+            {"text":"11", "correct": false}
         ],
         "explanation": 
-            [ 
-                "Direkt címzés: amikor a cím mező egy operandus címét tartalmazza (nem egy regiszterből veszi a címet)",
-                "mov EAX, [TOMB]: direkt címzés, mivel a fordító program kicseréli a TOMB cimkét a memóriacímére",
-                "add EBX, 4: immediate (közvetlen) címzés, a 4-es értéket megadjuk az utasítás után, nem kell a memóriában keresni",
-                "sub ECX, EAX: regiszter címzés, mindkettő regiszter",
-                "mov EAX, [ESI]: indirekt címzés, mert a címet elöszőr a regszter címén kell megkeresse",
-                "mov AL, [ESI + 4*EBX]: indexelt címzés"
+        [ 
+            "6 darab:",
+                "SS = stack segment",
+                "DS = data segment",
+                "CS = code segment",
+                "ES = extra segment",
+                "FS = operácios rendszer határozza meg (eredetileg file szegment)",
+                "GS = operácios rendszer határozza meg",
+                "A szegmens regiszterek a program különböző részeinek elérésében segítenek, valós üzemmód esetén: a szegmens sorszámát tárolják,",
+                "   védett üzemmód esetén a globális deszkriptortáblában a szegmens deszkriptorának indexét és más adatokat.",
+                "(Global Descriptor Table: az operációs rendszer állítja be, más dolgok mellett a szegmens adait tartalmazza).",
+                "Deszkriptor: a deszkriptor tábla egy olyan része, amely adatokat tartalmaz, például az adott szegmensről (amelynek a deszkriptora) - kezdőcím, hossz, írás-olvasási jogok."
             ]
-    },
-    {
-        "question":"Melyik utasítás tartalmaz indirekt címzést?",
-        "answers": [
-            {"text":"sub ECX, EAX", "correct": false},
-            {"text":"add EBX, 4", "correct": false},
-            {"text":"mov [EDX], AL", "correct": true},
-            {"text":"mov EAX, [TOMB]", "correct": false},
-            {"text":"mov AL, [ESI + 4*EBX]", "correct": false}
-        ],
-        "explanation": 
-            [ 
-                "Indirekt címzés: amikor a cím mező egy operandus címét tartalmazza (nem egy regiszterből veszi a címet)",
-                "mov [EDI], AL: indirekt címzés, mert a címet elöszőr a regiszter címén kell megkeresse",
-                "mov EAX, [TOMB]: direkt címzés, mivel a fordító program kicseréli a TOMB cimkét a memóriacímére",
-                "add EBX, 4: immediate (közvetlen) címzés, a 4-es értéket megadjuk az utasítás után, nem kell a memóriában keresni",
-                "sub ECX, EAX: regiszter címzés, mindkettő regiszter",
-                "mov AL, [ESI + 4*EBX]: indexelt címzés"
-            ]
-    }
+        },
+        {
+            "question":"Miből áll egy virtuális cím 80486-os processzor esetén?",
+            "answers": [
+                {"text":"egy 32 bites szelektorból és egy 32 bites offsetből", "correct": false},
+                {"text":"egy 16 bites szelektorból és egy 32 bites offsetből", "correct": true},
+                {"text":"a szegmens kezdőcíméből és az offsetből", "correct": false},
+                {"text":"egy 8 byte-os deszkriptorból", "correct": false}
+            ],
+            "explanation": 
+                [ 
+                    "80846-os processzor (32 bites architektúra):",
+                    "16 bites szelektor és 32 bites offset",
+                    "A szelektor egy (8 byteos) deszkriptor-táblabeli deszkriptor elérhetőségét tartalmazza.",
+                    "A szelektor valós üzemmódban a szegmens sorszámát, védett üzemmódban a deszkriptor táblabeli indexét és más adatokat tartalmaz.",
+                    "Az offset a szegmensen (memóriaterületen) belüli memóriacím sorszámát tartalmazza (szegmensen belüli eltolás)."
+                ]
+        },
+        {
+            "question":"Mit tartalmaz egy szelektor 80486-os processzor esetén?",
+            "answers": [
+                {"text":"a szegmens kezdőcímét", "correct": false},
+                {"text":"a szegmensen belüli offsetet", "correct": true},
+                {"text":"a szegmens kezdőcíméből és az offsetből", "correct": false},
+                {"text":"egy 8 byte-os deszkriptorból", "correct": false}
+            ],
+            "explanation": 
+                [ 
+                    "80846-os processzor (32 bites architektúra):",
+                    "16 bites szelektor és 32 bites offset",
+                    "A szelektor egy (8 byteos) deszkriptor-táblabeli deszkriptor elérhetőségét tartalmazza.",
+                    "A szelektor valós üzemmódban a szegmens sorszámát, védett üzemmódban a deszkriptor táblabeli indexét",
+                    "   a selector privilégium szintjét (Requested Privilegium Level=RPL)", 
+                    "   és a használandó deszkiptortáblát (Globális vagy az adott taskhoz rendelt Lokálist választót) tartalmazza.",
+                    "Az offset a szegmensen (memóriaterületen) belüli memóriacím sorszámát tartalmazza (szegmensen belüli eltolás)."
+                ]
+        },
+        {
+            "question":"Mit ért az intel dokumentáció 'tábla' alatt?",
+            "answers": [
+                {"text":"egy mátrixot", "correct": false},
+                {"text":"egy tömböt", "correct": true}
+            ],
+            "explanation": 
+                [ 
+                    "Egy tömböt ért, aminek indexei vannak,",
+                    "a deszkriptor-tábla nem más, mint egy tömb, amelyik deszkriptorokat tartalmaz,",
+                    "védett üzemmód esetén a szelektorok az adott deszkriptor indexét, ", 
+                    "   a selector privilégium szintjét (Requested Privilegium Level=RPL)", 
+                    "   és a használandó deszkiptortáblát (Globális vagy az adott taskhoz rendelt Lokálist választástja).",
+                    "A szelektor valós üzemmódban a szegmens sorszámát tartalmazza.",
+                    "Az offset a szegmensen (memóriaterületen) belüli memóriacím sorszámát tartalmazza (szegmensen belüli eltolás)."
+                ]
+        }
 ]

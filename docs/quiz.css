@@ -59,10 +59,11 @@ p
     border:rgba(189, 163, 231, 0.288) 1px solid;
 }
 
-#explanation p
+#explanation pre
 {
     padding: 4px;
     font-size: 1em;
+    tab-size: 8;
 }
 
 .valasz
@@ -118,6 +119,22 @@ p
 {
     color:rgba(124, 1, 1, 0.918);
 }
+
+@media only screen and (max-width: 600px) {
+    #quiz-conatiner
+    {
+        height: auto;
+    }
+
+    #valasz-container
+    {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        width: 70%;
+        /* border: red 3px solid; */
+    }
+  }
 /* other */
 
 .unselectable{

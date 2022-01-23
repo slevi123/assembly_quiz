@@ -71,7 +71,7 @@ function load_round_into_dom(quiz_round)
 
     if (is_string(quiz_round.explanation))
     {
-        uj_szoveg_dom = document.createElement("p")
+        uj_szoveg_dom = document.createElement("pre")
         uj_szoveg_dom.textContent = quiz_round.explanation
         explanation_dom.appendChild(uj_szoveg_dom)
     }
@@ -79,7 +79,7 @@ function load_round_into_dom(quiz_round)
     if (Array.isArray(quiz_round.explanation))
         {
             quiz_round.explanation.forEach((explanation_row)=>{
-                uj_szoveg_dom = document.createElement("p")
+                uj_szoveg_dom = document.createElement("pre")
                 uj_szoveg_dom.textContent = explanation_row
                 explanation_dom.appendChild(uj_szoveg_dom)
             })
@@ -98,7 +98,7 @@ function load_round_into_dom(quiz_round)
     quiz_round.answers.forEach(answer => {
         let uj_szoveg_dom = document.createElement("p")
         uj_szoveg_dom.classList.add("valasz")
-        uj_szoveg_dom.textContent = answer.text
+        uj_szoveg_dom.innerText = answer.text
         uj_szoveg_dom.setAttribute("correct", answer.correct)
         uj_szoveg_dom.addEventListener("click", ()=>{answer_chosen(uj_szoveg_dom)})
         answers_dom.appendChild(uj_szoveg_dom)
@@ -119,6 +119,8 @@ function answer_chosen(answer_dom)
         else
             answer_dom.classList.add("incorrect")
     }
+
+    document.getElementsByTagName('body')[0].focus()
 }
 
 function next_round()
@@ -141,6 +143,17 @@ window.onload = async (ev)=>{
     next_round()
 
     document.getElementById("next-button").onclick = ()=>{next_round()}
+
+    // adding enter key
+    document.addEventListener("keyup", event => {
+        console.log("fired")
+        if (event.key === 'Enter') {
+            document.getElementById("next-button").onclick = ()=>{next_round()}
+        }
+    });
+
+    //
+    document.getElementsByTagName('body')[0].focus()
 }
 
 function random_element(array)

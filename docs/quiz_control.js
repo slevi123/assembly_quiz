@@ -4,17 +4,18 @@ async function load_round_templates()
     // load simple templates
     const simple_templates = await load_json('./round_templates/simple_rounds.json');
     
-    simple_rounds = []
+    let generators = []
 
     // convert simple_round_templates into round generator functions
     for (let i = simple_templates.length - 1; i >= 0; i--)
-            simple_rounds.push(
+            generators.push(
                 ()=>simple_round_loader(simple_templates[i])
             )
 
-    console.log(simple_rounds)
+    generators.push(idiv_round_generator )
+    console.log(generators)
 
-    next_round.round_generators = simple_rounds
+    next_round.round_generators = generators
 }
 
 function simple_round_loader(round_template)
@@ -26,6 +27,61 @@ function simple_round_loader(round_template)
     shuffle_array(round.answers)
 
     return round;
+}
+
+function idiv_round_generator()
+{
+    round = 
+    {
+        question: [],
+        answers: ["a","b","c"],
+        explanation: "vau"
+    }
+
+    operand = random_element(["b", "c"])
+    
+    nullazo = random_element([
+        (operand_name)=>`xor ${operand_name}, ${operand_name}`,
+        (operand_name)=>`mov ${operand_name}, 0`,
+    ])
+
+    osztando = ~~(Math.random() * 256)
+    oszto = ~~(Math.random() * 11)
+
+    negativ_eredmeny = ~~(Math.random() * 2) // 0 or 1
+
+    let operand_size = Math.pow(2, ~~(Math.random() * 3 + 3))    // 8 or 16 or 32
+
+    if (operand_size == 8)
+        {
+            round.question.push(`Mi lesz az al értéke a következő kódrészlet végrehajtása után?`)
+            round.question.push(nullazo(`${operand}h`))
+            round.question.push(`mov ah, ${osztando}`)
+            round.question.push(`mov ${operand}h, ${oszto}`)
+            round.question.push(`div ${operand}h`)
+
+            // valaszok.push({ text: `117`, correct: true})
+            // valaszok.push({ text: `${oszta}`, correct: true})
+
+        }
+        else if (operand_size == 16)
+        {
+            round.question.push(`Mi lesz az ax értéke a következő kódrészlet végrehajtása után?`)
+            round.question.push(nullazo(`dx`))
+            round.question.push(`mov ax, ${osztando}`)
+            round.question.push(`mov ${operand}x, ${oszto}`)
+            round.question.push(`div ${operand}x`)
+        }
+        else
+        {
+            round.question.push(`Mi lesz az eax értéke a következő kódrészlet végrehajtása után?`)
+            round.question.push(nullazo(`edx`))
+            round.question.push(`mov eax, ${osztando}`)
+            round.question.push(`mov e${operand}x, ${oszto}`)
+            round.question.push(`div e${operand}x`)
+        }
+
+    return round
 }
 
 function is_string(value) {
@@ -53,7 +109,7 @@ function load_round_into_dom(quiz_round)
     if (Array.isArray(quiz_round.question))
         {
             quiz_round.question.forEach((question_row)=>{
-                uj_szoveg_dom = document.createElement("p")
+                uj_szoveg_dom = document.createElement("pre")
                 uj_szoveg_dom.textContent = question_row
                 question_dom.appendChild(uj_szoveg_dom)
             })
